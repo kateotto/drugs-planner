@@ -2,32 +2,41 @@
   "person": [],
   "medicine": [
     {
+      "id": 1,
       "name": "Polocard"
     },
     {
+      "id": 2,
       "name": "Ketonal"
     },
     {
+      "id": 3,
       "name": "Heviran"
     },
     {
+      "id": 4,
       "name": "Aspiran"
     },
     {
+      "id": 5,
       "name": "Nolicin"
     }
   ],
   "wards": [
     {
+      "id": 1,
       "name": "Chirurgia"
     },
     {
+      "id": 2,
       "name": "Pediatria"
     },
     {
+      "id": 3,
       "name": "Onkologia"
     },
     {
+      "id": 4,
       "name": "Okulistyka"
     }
   ]

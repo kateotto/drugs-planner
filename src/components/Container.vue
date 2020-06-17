@@ -15,7 +15,7 @@
               form="dataForm"
               class="input"
             >
-              <option v-for="element of medicines" :key="element.name">{{
+              <option v-for="element of medicines" :key="element.id">{{
                 element.name
               }}</option>
             </select>
@@ -83,7 +83,7 @@
               form="dataForm"
               class="input"
             >
-              <option v-for="element of wards" :key="element.name">{{
+              <option v-for="element of wards" :key="element.id">{{
                 element.name
               }}</option>
             </select>
