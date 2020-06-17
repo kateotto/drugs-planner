@@ -1,81 +1,135 @@
 <template>
   <div id="container" class="container">
-    <div class="header">Dodaj leki</div>
+    <div class="header header--big">Dodaj lek</div>
     <div class="container__form">
       <div class="container__information">
         <div class="element">
-          <label for="drugTitle">Nazwa leku: </label>
-          <select
-            name="drugTitle"
-            id="drugTitle"
-            v-model="drugTitle"
-            form="dataForm"
-          >
-            <option value="Polocard">Polocard</option>
-            <option value="Ketonal">Ketonal</option>
-            <option value="Heviran">Heviran</option>
-            <option value="Aspiran">Aspiran</option>
-          </select>
+          <label for="drugTitle" class="container__title">
+            Nazwa leku:
+          </label>
+          <div>
+            <select
+              name="drugTitle"
+              id="drugTitle"
+              v-model="drugTitle"
+              form="dataForm"
+              class="input"
+            >
+              <option value="Polocard">Polocard</option>
+              <option value="Ketonal">Ketonal</option>
+              <option value="Heviran">Heviran</option>
+              <option value="Aspiran">Aspiran</option>
+            </select>
+          </div>
         </div>
-        <div class="container__drugInformation element">
-          <label for="drugMorning">Godzina: </label>
-          <label for="drugMorning">8:00</label>
-          <input
-            type="checkbox"
-            name="drugMorging"
-            value="8"
-            v-model="drugHour"
-          />
-          <label for="drugAfternoon">15:00</label>
-          <input
-            type="checkbox"
-            name="drugAfternoon"
-            value="15"
-            v-model="drugHour"
-          />
-          <label for="drugEvening">22:00</label>
-          <input
-            type="checkbox"
-            name="drugEvening"
-            value="22"
-            v-model="drugHour"
-          />
+        <div class="element element__hours">
+          <label class="container__title">Godzina: </label>
+          <div>
+            <label for="drugMorning">8:00</label>
+            <input
+              type="checkbox"
+              name="drugMorging"
+              value="8"
+              v-model="drugHour"
+              class="input--checkbox"
+            />
+            <label for="drugAfternoon">15:00</label>
+            <input
+              type="checkbox"
+              name="drugAfternoon"
+              value="15"
+              v-model="drugHour"
+              class="input--checkbox"
+            />
+            <label for="drugEvening">22:00</label>
+            <input
+              type="checkbox"
+              name="drugEvening"
+              value="22"
+              v-model="drugHour"
+              class="input--checkbox"
+            />
+          </div>
         </div>
         <div class="element">
-          <label for="drugDate">Data: </label>
-          <input type="date" name="drugDate" v-model="drugDate" />
+          <label for="drugDate" class="container__title">Data: </label>
+          <div>
+            <input
+              type="date"
+              name="drugDate"
+              v-model="drugDate"
+              class="input"
+            />
+          </div>
         </div>
         <div class="element">
-          <label for="drugAmount">Ilość: </label>
-          <input name="drugAmount" type="number" min="0" v-model="drugAmount" />
+          <label for="drugAmount" class="container__title">Ilość: </label>
+          <div>
+            <input
+              name="drugAmount"
+              type="number"
+              min="0"
+              v-model="drugAmount"
+              class="input"
+            />
+          </div>
         </div>
         <div class="element">
-          <label for="ward">Oddział: </label>
-          <select name="ward" id="ward" v-model="ward" form="dataForm">
-            <option value="kardiologia">Kardiologia</option>
-            <option value="okulistyka">Okulistyka</option>
-            <option value="chirurgia">Chirurgia</option>
-          </select>
+          <label for="ward" class="container__title">Oddział: </label>
+          <div>
+            <select
+              name="ward"
+              id="ward"
+              v-model="ward"
+              form="dataForm"
+              class="input"
+            >
+              <option value="kardiologia">Kardiologia</option>
+              <option value="okulistyka">Okulistyka</option>
+              <option value="chirurgia">Chirurgia</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="center subheader">Pacjent</div>
+      <div class="center header header--medium">Pacjent</div>
       <div class="container__patient">
         <div class="element">
-          <label for="personName">Imię: </label>
-          <input type="text" name="personName" v-model="personName" />
+          <label for="personName" class="container__title">Imię: </label>
+          <div>
+            <input
+              type="text"
+              name="personName"
+              v-model="personName"
+              class="input"
+            />
+          </div>
         </div>
         <div class="element">
-          <label for="personSurname">Nazwisko: </label>
-          <input type="text" name="personSurname" v-model="personSurname" />
+          <label for="personSurname" class="container__title">Nazwisko: </label>
+          <div>
+            <input
+              type="text"
+              name="personSurname"
+              v-model="personSurname"
+              class="input"
+            />
+          </div>
         </div>
         <div class="element">
-          <label for="personId">Pesel: </label>
-          <input type="text" name="personId" v-model="personId" />
+          <label for="personId" class="container__title">Pesel: </label>
+          <div>
+            <input
+              type="text"
+              name="personId"
+              v-model="personId"
+              class="input"
+            />
+          </div>
         </div>
       </div>
     </div>
     <button v-on:click="isValid" class="container__button">Dodaj</button>
-    <div>{{ error }}</div>
+    <div class="error">{{ error }}</div>
     <div class="container__card">
       <Card
         v-for="item of planner"
@@ -211,28 +265,135 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   &__form {
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: 20px 0;
+    padding: 20px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+
+    @media screen and (max-width: 1024px) {
+      width: 90%;
+    }
   }
   &__information {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-areas: "a a a a a";
+    grid-template-rows: 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-items: center;
+
+    @media screen and (max-width: 1280px) {
+      grid-template-areas: "a a a";
+    }
+
+    @media screen and (max-width: 768px) {
+      grid-template-areas: "a a";
+    }
+    @media screen and (max-width: 600px) {
+      grid-template-areas: "a";
+    }
   }
   &__patient {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-areas: "a a a";
+    grid-template-rows: 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-items: center;
+
+    @media screen and (max-width: 1024px) {
+      grid-template-areas: "a a";
+    }
+    @media screen and (max-width: 600px) {
+      grid-template-areas: "a";
+    }
+  }
+  &__title {
+    font-weight: 600;
   }
   &__button {
-    margin: 10px 0;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    background-color: #154fb5;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s ease-in background-color;
+    &:hover {
+      background-color: #1960dc;
+    }
   }
   &__card {
     display: grid;
     grid-template-areas: "a a a a";
     grid-template-rows: 1fr;
+    column-gap: 25px;
     justify-items: center;
+
+    @media screen and (max-width: 1024px) {
+      grid-template-areas: "a a a";
+    }
+
+    @media screen and (max-width: 768px) {
+      grid-template-areas: "a a";
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-template-areas: "a";
+    }
+  }
+}
+
+.element {
+  &__hours {
+    display: inline-block;
+  }
+  @media screen and (max-width: 1280px) {
+    margin: 0px 10px;
   }
 }
 .center {
   text-align: center;
+}
+
+.header {
+  margin: 10px 0;
+  font-weight: 600;
+
+  &--big {
+    font-size: 2em;
+  }
+
+  &--medium {
+    font-size: 1.5em;
+    margin: 10px 0;
+    @media screen and (max-width: 600px) {
+      margin: 30px 0;
+    }
+  }
+}
+.input {
+  width: 175px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #154fb5;
+  outline: none;
+
+  &--checkbox {
+    margin: 0 10px;
+  }
+}
+.error {
+  color: red;
 }
 </style>
