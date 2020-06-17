@@ -1,8 +1,8 @@
 <template>
   <div id="container" class="container">
-    <h1>Dodaj leki</h1>
+    <div>Dodaj leki</div>
     <div class="container__form">
-      <div class="container__drugInformation">
+      <div class="container__information">
         <div class="element">
           <label for="drugTitle">Nazwa leku: </label>
           <select
@@ -58,8 +58,8 @@
           </select>
         </div>
       </div>
-      <h3 class="center">Pacjent</h3>
-      <div class="container__drugPatient">
+      <div class="center">Pacjent</div>
+      <div class="container__patient">
         <div class="element">
           <label for="personName">Imię: </label>
           <input type="text" name="personName" v-model="personName" />
@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <button v-on:click="isValidate" class="container__button">Dodaj</button>
+    <button v-on:click="isValid" class="container__button">Dodaj</button>
     <div>{{ error }}</div>
     <div class="container__card">
       <Card
@@ -109,7 +109,6 @@ export default {
       personName: "",
       personSurname: "",
       personId: "",
-      isPesel: "",
       error: ""
     };
   },
@@ -136,7 +135,6 @@ export default {
       this.personName = "";
       this.personSurname = "";
       this.personId = "";
-      this.isPesel = "";
     },
     async addItem() {
       const res = await axios.post(baseURL, {
@@ -157,28 +155,11 @@ export default {
       this.resetData();
     },
     async deleteItem(id) {
-      console.log(id);
       const res = await axios.delete(baseURL + "/" + id);
       this.planner = [...this.planner, res.data];
       window.location.reload();
     },
-    isPeselValidate(pesel) {
-      let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
-      let sum = 0;
-      let controlNumber = parseInt(pesel.substring(10, 11));
-      for (let i = 0; i < weight.length; i++) {
-        sum += parseInt(pesel.substring(i, i + 1)) * weight[i];
-      }
-      sum = sum % 10;
-      this.isPesel = (10 - sum) % 10 === controlNumber;
-    },
-    isValidate() {
-      this.error = "";
-      this.drugHour = this.drugHour.map(function(x) {
-        return parseInt(x, 10);
-      });
-      this.drugHour = this.drugHour.sort((a, b) => a - b);
-      this.isPeselValidate(this.personId);
+    isFormFilled() {
       if (
         this.drugTitle &&
         this.drugHour.length > 0 &&
@@ -189,7 +170,27 @@ export default {
         this.personSurname &&
         this.personId
       ) {
-        if (this.isPesel) {
+        return true;
+      } else return false;
+    },
+    isPeselValid(pesel) {
+      let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+      let sum = 0;
+      let controlNumber = parseInt(pesel.substring(10, 11));
+      for (let i = 0; i < weight.length; i++) {
+        sum += parseInt(pesel.substring(i, i + 1)) * weight[i];
+      }
+      sum = sum % 10;
+      return (10 - sum) % 10 === controlNumber;
+    },
+    isValid() {
+      this.error = "";
+      this.drugHour = this.drugHour.map(function(x) {
+        return parseInt(x, 10);
+      });
+      this.drugHour = this.drugHour.sort((a, b) => a - b);
+      if (this.isFormFilled()) {
+        if (this.isPeselValid(this.personId)) {
           this.addItem();
         } else {
           this.error = "Pesel niepoprawny";
@@ -210,15 +211,13 @@ export default {
   &__form {
     width: 60%;
   }
-  &__drug {
-    &Information {
-      display: flex;
-      justify-content: space-around;
-    }
-    &Patient {
-      display: flex;
-      justify-content: space-evenly;
-    }
+  &__information {
+    display: flex;
+    justify-content: space-around;
+  }
+  &__patient {
+    display: flex;
+    justify-content: space-evenly;
   }
   &__button {
     margin: 10px 0;
