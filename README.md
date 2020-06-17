@@ -6,6 +6,12 @@
 npm install
 ```
 
+### Global install JSON-SERVER (needed)
+
+```
+npm install -g json-server
+```
+
 ### Compiles and hot-reloads for development
 
 ```
