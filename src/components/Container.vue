@@ -15,10 +15,9 @@
               form="dataForm"
               class="input"
             >
-              <option value="Polocard">Polocard</option>
-              <option value="Ketonal">Ketonal</option>
-              <option value="Heviran">Heviran</option>
-              <option value="Aspiran">Aspiran</option>
+              <option v-for="element of medicines" :key="element.name">{{
+                element.name
+              }}</option>
             </select>
           </div>
         </div>
@@ -84,9 +83,9 @@
               form="dataForm"
               class="input"
             >
-              <option value="kardiologia">Kardiologia</option>
-              <option value="okulistyka">Okulistyka</option>
-              <option value="chirurgia">Chirurgia</option>
+              <option v-for="element of wards" :key="element.name">{{
+                element.name
+              }}</option>
             </select>
           </div>
         </div>
@@ -143,7 +142,9 @@
 </template>
 <script>
 import axios from "axios";
-const baseURL = "http://localhost:3000/drugs";
+const baseURL = "http://localhost:3000/person";
+const medicineURL = "http://localhost:3000/medicine";
+const wardURL = "http://localhost:3000/wards";
 
 import Card from "./Card";
 
@@ -155,6 +156,8 @@ export default {
   data() {
     return {
       planner: [],
+      medicines: [],
+      wards: [],
       drugTitle: "",
       drugHour: [],
       drugDate: "",
@@ -170,8 +173,12 @@ export default {
   async created() {
     try {
       const res = await axios.get(baseURL);
+      const resMedicine = await axios.get(medicineURL);
+      const resWards = await axios.get(wardURL);
 
       this.planner = res.data;
+      this.medicines = resMedicine.data;
+      this.wards = resWards.data;
     } catch (e) {
       console.error(e);
     }
@@ -214,7 +221,7 @@ export default {
       window.location.reload();
     },
     isFormFilled() {
-      if (
+      return (
         this.drugTitle &&
         this.drugHour.length > 0 &&
         this.drugDate &&
@@ -223,9 +230,7 @@ export default {
         this.personName &&
         this.personSurname &&
         this.personId
-      ) {
-        return true;
-      } else return false;
+      );
     },
     isPeselValid(pesel) {
       let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
