@@ -1,6 +1,6 @@
 <template>
   <div id="container" class="container">
-    <div>Dodaj leki</div>
+    <div class="header">Dodaj leki</div>
     <div class="container__form">
       <div class="container__information">
         <div class="element">
@@ -58,7 +58,7 @@
           </select>
         </div>
       </div>
-      <div class="center">Pacjent</div>
+      <div class="center subheader">Pacjent</div>
       <div class="container__patient">
         <div class="element">
           <label for="personName">Imię: </label>
@@ -183,12 +183,15 @@ export default {
       sum = sum % 10;
       return (10 - sum) % 10 === controlNumber;
     },
-    isValid() {
-      this.error = "";
+    sortHour() {
       this.drugHour = this.drugHour.map(function(x) {
         return parseInt(x, 10);
       });
       this.drugHour = this.drugHour.sort((a, b) => a - b);
+    },
+    isValid() {
+      this.error = "";
+      this.sortHour();
       if (this.isFormFilled()) {
         if (this.isPeselValid(this.personId)) {
           this.addItem();
